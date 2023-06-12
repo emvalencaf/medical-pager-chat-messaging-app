@@ -12,6 +12,8 @@ export const GiphyContext = React.createContext({});
 const ChannelInner = ({ setIsEditing }) => {
     const [giphyState, setGiphyState] = useState(false);
     const { sendMessage } = useChannelActionContext();
+
+    console.log(setIsEditing);
     
     const overrideSubmitHandler = (message) => {
       let updatedMessage = {
@@ -46,4 +48,4 @@ const ChannelInner = ({ setIsEditing }) => {
     );
 };
 
-export default ChannelInner();
+export default ChannelInner;

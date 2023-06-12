@@ -23,29 +23,26 @@ const UserList = ({ setSelectedUsers }) => {
             setLoading(true);
 
             try {
-
-                const response = await client.queryUsers({
-                    id: { $me: client.userID },
-                },
+                const response = await client.queryUsers(
+                    { id: { $ne: client.userID } },
                     { id: 1 },
-                    { limit: 8 },
+                    { limit: 8 }
                 );
 
-                response?.users?.length ?
-                    setUsers(response.users)
-                    : setIsListEmpty(true);
-
+                if (response.users.length) {
+                    setUsers(response.users);
+                } else {
+                    setIsListEmpty(true);
+                }
             } catch (error) {
-                console.log(error);
                 setError(true);
             }
-
             setLoading(false);
-        };
+        }
 
-        if (client) getUsers();
-
+        if (client) getUsers()
     }, []);
+
 
     if (error) return (
         <UserListContainer>
@@ -71,7 +68,7 @@ const UserList = ({ setSelectedUsers }) => {
                 </div>
             ) : (
                 users?.map((user, index) => (
-                    <UserItem user={user} key={`${index}-${user.id}`} setSelectedUsers={setSelectedUsers} />
+                    <UserItem user={user} key={`${index}-${user?.id}`} setSelectedUsers={setSelectedUsers} />
                 ))
             )}
         </UserListContainer>

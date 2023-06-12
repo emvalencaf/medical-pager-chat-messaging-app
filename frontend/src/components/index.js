@@ -1,5 +1,6 @@
 import Auth from "./Auth";
 import ChannelContainer from "./ChannelContainer";
+import ChannelInner from './ChannelInner';
 import ChannelListContainer from "./ChanneListContainer";
 import ChannelListContent from "./ChannelListContent";
 import ChannelNameInput from "./ChannelNameInput";
@@ -20,6 +21,7 @@ import UserListContainer from "./UserListContainer";
 export {
     Auth,
     ChannelContainer,
+    ChannelInner,
     ChannelListContainer,
     ChannelListContent,
     ChannelNameInput,

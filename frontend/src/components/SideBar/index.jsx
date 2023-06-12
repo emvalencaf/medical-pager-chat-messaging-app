@@ -32,12 +32,11 @@ const SideBar = () => {
             </div>
             <div className="channel-list__sidebar__icon2">
                 <div className="icon1__inner" onClick={handleLogout}>
-                    <img src={Logout} alt="logout" width={30} />
+                    <img src={Logout} alt="Logout" width={30} />
                 </div>
             </div>
         </div>
-        
-    )
+    );
 };
 
 export default SideBar;

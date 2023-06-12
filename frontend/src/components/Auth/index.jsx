@@ -36,7 +36,7 @@ const Auth = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const URL = 'http://localhost:5000/auth';
+        const URL = 'http://localhost:5000/api/auth';
 
         const dataForm = {
             fullName: form.fullName,
@@ -46,12 +46,14 @@ const Auth = () => {
             avatarURL: form.avatarURL,
         };
 
-        const { data: {
+        const { data } = await axios.post(`${URL}/${isSignUp ? 'sign-up' : 'sign-in'}`, dataForm);
+        console.log(data);
+        const {
             token,
             userId,
             hashedPassword,
             fullName,
-        } } = await axios.post(`${URL}/${isSignUp ? 'sign-up' : 'sign-in'}`, dataForm);
+        } = data;
 
         cookies.set('token', token);
         cookies.set('username', form.username);
@@ -79,7 +81,7 @@ const Auth = () => {
                     <p>
                         {isSignUp ? 'Sign Up' : 'Sign In'}
                     </p>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         {isSignUp && (
                             <div className="auth__form-container_fields-content_input">
                                 <label htmlFor="fullName">

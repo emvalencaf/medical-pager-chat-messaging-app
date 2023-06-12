@@ -9,7 +9,7 @@ import { useState } from "react";
 // custom components
 import { ChannelNameInput, UserList } from '../';
 
-const CreateChannel = ({createType, setIsCreating}) => {
+const CreateChannel = ({ createType, setIsCreating }) => {
     const { client, setActiveChannel } = useChatContext();
 
     // channel name states
@@ -52,7 +52,7 @@ const CreateChannel = ({createType, setIsCreating}) => {
             <UserList setSelectedUsers={setSelectedUsers}  />
             <div className="create-channel__button-wrapper" onClick={createChannel}>
                 <p>
-                    {createType === "team" ? 'Create Channel' : 'Crate Message Group'}
+                    {createType === "team" ? 'Create Channel' : 'Create Message Group'}
                 </p>
             </div>
         </div>

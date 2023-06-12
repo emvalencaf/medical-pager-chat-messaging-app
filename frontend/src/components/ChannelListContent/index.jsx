@@ -14,11 +14,7 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
     const { client } = useChatContext();
 
     const filters = {
-        members: {
-            $in: [
-                client.userID,
-            ],
-        },
+        members: { $in: [client.userID,], },
     };
 
     return (
@@ -26,28 +22,30 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
             <SideBar />
             <div className="channel-list__list__wrapper">
                 <CompanyHeader />
-                <ChannelSearch setToggleContainer={setToggleContainer} />
+                <ChannelSearch
+                    setToggleContainer={setToggleContainer}
+                />
                 <ChannelList
                     filters={filters}
                     channelRenderFilterFn={customChannelTeamFilter}
                     List={(listProps) => (
                         <TeamChannelList
+                            {...listProps}
+                            type="team"
                             isCreating={isCreating}
                             setIsCreating={setIsCreating}
                             setCreateType={setCreateType}
                             setIsEditing={setIsEditing}
-                            {...listProps}
                             setToggleContainer={setToggleContainer}
-                            type="team"
                         />
                     )}
                     Preview={(previewProps) => (
                         <TeamChannelPreview
                             {...previewProps}
+                            type="team"
                             setToggleContainer={setToggleContainer}
                             setIsCreating={setIsCreating}
                             setIsEditing={setIsEditing}
-                            type="team"
                         />
                     )}
                 />
@@ -56,11 +54,11 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
                     channelRenderFilterFn={customChannelMessagingFilter}
                     List={(listProps) => (
                         <TeamChannelList
+                            {...listProps}
                             isCreating={isCreating}
                             setIsCreating={setIsCreating}
                             setCreateType={setCreateType}
                             setIsEditing={setIsEditing}
-                            {...listProps}
                             setToggleContainer={setToggleContainer}
                             type="messaging"
                         />

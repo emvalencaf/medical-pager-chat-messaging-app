@@ -25,11 +25,17 @@ const signIn = async (req, res) => {
 
         if (!success) return res.status(500).json({ message: 'incorrect password or username' });
 
+
+        console.log('token: ', token);
+        console.log('userId: ', users[0].id);
+        console.log('fullName: ', users[0].fullName);
+        console.log('username: ', username);
+
         res.status(200).json({
             token,
-            fullName: usrs[0].fullName,
+            fullName: users[0].fullName,
             username,
-            usersId: users[0].id,
+            userId: users[0].id,
         });
     } catch (error) {
         console.log(error);
@@ -49,7 +55,7 @@ const signUp = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const token = serverClient.createUserToken(userID);
+        const token = serverClient.createUserToken(userId);
 
         res.status(200).json({ token, fullName, username, userId, hashedPassword, phoneNumber});
     } catch (error) {

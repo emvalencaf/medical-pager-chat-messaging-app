@@ -38,7 +38,11 @@ const TeamChannelPreview = ({ setActiveChannel, channel, type, setIsCreating, se
 
             }}
         >
-            { type === 'team' ? <ChannelPreview /> : <DirectPreview /> }
+            {
+                type === 'team' ?
+                    <ChannelPreview />
+                    : <DirectPreview />
+            }
         </div>
     );
 };

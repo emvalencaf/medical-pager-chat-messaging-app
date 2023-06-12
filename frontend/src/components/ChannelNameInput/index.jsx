@@ -1,5 +1,5 @@
 
-const ChannelNameInput = ({ channelName = '', setChannelName }) => {
+const ChannelNameInput = ({ channelName = "", setChannelName }) => {
     // handle change
     const handleChange = (event) => {
         event.preventDefault();
@@ -16,7 +16,7 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
                 type="text"
                 value={channelName}
                 onChange={handleChange}
-                placeholder="channel-name (no spaces)" 
+                placeholder="channel name" 
             />
             <p>
                 Add Members
