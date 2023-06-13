@@ -41,7 +41,10 @@ const ChannelContainer = ({
     }
 
     return (
-        <div className="chanel__container">
+        <div className="chanel__container" style={{
+            width: '100%',
+            padding: '0px 20px',
+        }}>
             <Channel
                 EmptyStateIndicator={EmpetyState}
                 Message={(messageProps, i) => <MessageSimple key={i} {...messageProps} />}

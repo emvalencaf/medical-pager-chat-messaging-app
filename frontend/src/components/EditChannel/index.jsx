@@ -12,8 +12,8 @@ const EditChannel = ({ setIsEditing }) => {
     const { channel } = useChatContext();
 
     // channel states
-    const { channelName, setChannelName } = useState(channel?.data?.name);
-
+    const [ channelName, setChannelName ] = useState(channel?.data?.name);
+    
     // selected user states
     const [selectedUsers, setSelectedUsers] = useState([]);
 
@@ -21,23 +21,28 @@ const EditChannel = ({ setIsEditing }) => {
     const handleUpdateChannel = async (event) => {
         event.preventDefault();
 
-        const nameChanged = channelName !== (channel.data.name || channel.data.id);
-
-        if (nameChanged) {
-            await channel.update({
-                name: channelName
-            }, {
-                text: `Channel name changed to ${channelName}`
-            });
+        try {
+            const nameChanged = channelName !== (channel.data.name || channel.data.id);
+    
+            if (nameChanged) {
+                await channel.update({
+                    name: channelName
+                }, {
+                    text: `Channel name changed to ${channelName}`
+                });
+            }
+    
+            if (selectedUsers.length) await channel.addMembers(selectedUsers);
+            
+    
+            setChannelName(null);
+            setIsEditing(false);
+            setSelectedUsers([]);
+            
+        } catch (error) {
+            console.log(error);
+            alert("you are not allowed to edit the channel name");
         }
-
-        if (selectedUsers.length) {
-            await channel.addMembers(selectedUsers);
-        }
-
-        setChannelName(null);
-        setIsEditing(false);
-        setSelectedUsers([]);
     }
 
     return (
@@ -46,10 +51,16 @@ const EditChannel = ({ setIsEditing }) => {
                 <p>
                     Edit Channel
                 </p>
-                <CloseCreateChannel setIsEditing={setIsEditing} />
+                <CloseCreateChannel
+                    setIsEditing={setIsEditing}
+                />
             </div>
-            <ChannelNameInput channelName={channelName} setChannelName={setChannelName} />
-            <UserList setSelectedUsers={setSelectedUsers} />
+            <ChannelNameInput
+                channelName={channelName} setChannelName={setChannelName}
+            />
+            <UserList
+                setSelectedUsers={setSelectedUsers}
+            />
             <div className="edit-channel__button-wrapper" onClick={handleUpdateChannel}>
                 <p>
                     Save Changes

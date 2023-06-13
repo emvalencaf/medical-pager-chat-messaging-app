@@ -26,7 +26,7 @@ const ChannelSearch = ({ setToggleContainer }) => {
             setTeamChannels([]);
             setDirectChannels([]);
         }
-    }, []);
+    }, [query]);
 
 
     const setChannel = (channel) => {

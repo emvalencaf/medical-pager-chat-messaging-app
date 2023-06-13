@@ -16,6 +16,10 @@ const Auth = () => {
     // auth states
     const [isSignUp, setSignUp] = useState(false);
 
+    // error
+    const [ isError, setIsError ] = useState(false);
+    const [ errorMessage, setErrorMessage ] = useState('');
+
     // fields states
     const [form, setForm] = useState({
         fullName: '',
@@ -28,12 +32,20 @@ const Auth = () => {
 
     // handle change
     const handleChange = (event) => {
+        if (isError) {
+            setIsError(false);
+            setErrorMessage('');
+        }
         // change up a selected input
         setForm({...form, [event.target.name]: event.target.value});
     };
 
     // handle submit
     const handleSubmit = async (event) => {
+        if (isError) {
+            setIsError(false);
+            setErrorMessage(false);
+        }
         event.preventDefault();
 
         const URL = 'http://localhost:5000/api/auth';
@@ -46,27 +58,37 @@ const Auth = () => {
             avatarURL: form.avatarURL,
         };
 
-        const { data } = await axios.post(`${URL}/${isSignUp ? 'sign-up' : 'sign-in'}`, dataForm);
-        console.log(data);
-        const {
-            token,
-            userId,
-            hashedPassword,
-            fullName,
-        } = data;
-
-        cookies.set('token', token);
-        cookies.set('username', form.username);
-        cookies.set('fullName', fullName);
-        cookies.set('userId', userId);
-
-        if (isSignUp) {
-            cookies.set("phoneNumber", form.phoneNumber);
-            cookies.set('avatarURL', form.avatarURL);
-            cookies.set('hashedPassword', hashedPassword);
+        try {
+            const { data } = await axios.post(`${URL}/${isSignUp ? 'sign-up' : 'sign-in'}`, dataForm);
+    
+            console.log(data);
+            const {
+                token,
+                userId,
+                hashedPassword,
+                fullName,
+            } = data;
+    
+            cookies.set('token', token);
+            cookies.set('username', form.username);
+            cookies.set('fullName', fullName);
+            cookies.set('userId', userId);
+    
+            if (isSignUp) {
+                cookies.set("phoneNumber", form.phoneNumber);
+                cookies.set('avatarURL', form.avatarURL);
+                cookies.set('hashedPassword', hashedPassword);
+            }
+    
+            window.location.reload();
+        } catch (error) {
+            console.log(error);
+            setIsError(true);
+            const { response: { data: { message } } } = error;
+            setErrorMessage(message);
+            console.log(isError);
+            console.log(message);
         }
-
-        window.location.reload();
     };
 
     // switch mode
@@ -81,6 +103,16 @@ const Auth = () => {
                     <p>
                         {isSignUp ? 'Sign Up' : 'Sign In'}
                     </p>
+                    {isError && (
+                        <span style={{
+                            backgroundColor: 'red',
+                            borderRadius: '5px',
+                            color: 'whitesmoke',
+                            padding: '10px',
+                        }}>
+                            {errorMessage}
+                        </span>
+                    )}
                     <form onSubmit={handleSubmit}>
                         {isSignUp && (
                             <div className="auth__form-container_fields-content_input">

@@ -211,6 +211,10 @@
     display: none;
   }
   
+  .str-chat__channel-list {
+    background: none;
+  }
+
   .str-chat__input-footer {
     display: none;
   }
