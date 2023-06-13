@@ -48,7 +48,9 @@ const Auth = () => {
         }
         event.preventDefault();
 
-        const URL = 'http://localhost:5000/api/auth';
+        // testing URL
+        // const URL = 'http://localhost:5000/api/auth';
+        const URL = 'https://api-medical-pager-chat-messaging.onrender.com/api/auth';
 
         const dataForm = {
             fullName: form.fullName,
