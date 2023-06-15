@@ -15,6 +15,7 @@ const cookies = new Cookies();
 const Auth = () => {
     // auth states
     const [isSignUp, setSignUp] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // error
     const [ isError, setIsError ] = useState(false);
@@ -42,6 +43,8 @@ const Auth = () => {
 
     // handle submit
     const handleSubmit = async (event) => {
+        setIsLoading(true);
+
         if (isError) {
             setIsError(false);
             setErrorMessage(false);
@@ -90,6 +93,8 @@ const Auth = () => {
             setErrorMessage(message);
             console.log(isError);
             console.log(message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -162,7 +167,7 @@ const Auth = () => {
                         )}
                         <div className="auth__form-container_fields-content_button">
                             <button type="submit">
-                                {isSignUp ? 'Sign Up': 'Sign In'}
+                                {isSignUp ? 'Sign Up': isLoading ? 'Loading...' : 'Sign In'}
                             </button>
                         </div>
                     </form>
