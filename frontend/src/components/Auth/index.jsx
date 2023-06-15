@@ -1,6 +1,9 @@
 // hooks
 import { useState } from 'react';
 
+// custom components
+import { DemoButton } from '../';
+
 // cookies
 import Cookies from 'universal-cookie';
 
@@ -126,21 +129,21 @@ const Auth = () => {
                                 <label htmlFor="fullName">
                                     Full Name
                                 </label>
-                                <input type="text" name="fullName" placeholder='full name' onChange={handleChange} required />
+                                <input type="text" name="fullName" placeholder='full name' value={form.fullName} onChange={handleChange} required />
                             </div>
                         )}
                         <div className="auth__form-container_fields-content_input">
                             <label htmlFor="username">
                                 Username
                             </label>
-                            <input type="text" name="username" placeholder='username' onChange={handleChange} required />
+                            <input type="text" name="username" placeholder='username' value={form.username} onChange={handleChange} required />
                         </div>
                         {isSignUp && (
                             <div className="auth__form-container_fields-content_input">
                                 <label htmlFor="phoneNumber">
                                     Phone Number
                                 </label>
-                                <input type="tel" name="phoneNumber" placeholder='phone number' onChange={handleChange} required />
+                                <input type="tel" name="phoneNumber" placeholder='phone number' value={form.phoneNumber} onChange={handleChange} required />
                             </div>
                         )}
                         {isSignUp && (
@@ -148,27 +151,30 @@ const Auth = () => {
                                 <label htmlFor="avatarURL">
                                     Avatar URL
                                 </label>
-                                <input type="url" name="avatarURL" placeholder='avatar url' onChange={handleChange} required />
+                                <input type="url" name="avatarURL" placeholder='avatar url' value={form.avatarURL} onChange={handleChange} required />
                             </div>
                         )}
                         <div className="auth__form-container_fields-content_input">
                             <label htmlFor="password">
                                 Password
                             </label>
-                            <input type="password" name="password" placeholder='password' onChange={handleChange} required />
+                            <input type="password" name="password" placeholder='password' value={form.password} onChange={handleChange} required />
                         </div>
                         {isSignUp && (
                             <div className="auth__form-container_fields-content_input">
                                 <label htmlFor="confirmPassword">
                                     Confirm Password
                                 </label>
-                                <input type="password" name="confirmPassword" placeholder='confirm password' onChange={handleChange} required />
+                                <input type="password" name="confirmPassword" placeholder='confirm password' value={form.confirmPassword} onChange={handleChange} required />
                             </div>
                         )}
-                        <div className="auth__form-container_fields-content_button">
+                        <div className="auth__form-container_fields-content_button" style={{
+                            gap: '10px',
+                        }}>
                             <button type="submit">
                                 {isSignUp ? 'Sign Up': isLoading ? 'Loading...' : 'Sign In'}
                             </button>
+                            <DemoButton setForm={setForm} username={form.username} form={form}  />
                         </div>
                     </form>
                     <div className="auth__form-container_fields-account">

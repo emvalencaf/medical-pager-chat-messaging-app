@@ -7,6 +7,7 @@ import ChannelNameInput from "./ChannelNameInput";
 import ChannelSearch from "./ChannelSearch";
 import CompanyHeader from "./CompanyHeader";
 import CreateChannel from "./CreateChannel";
+import DemoButton from "./DemoButton";
 import EditChannel from "./EditChannel";
 import ResultsDropdown from "./ResultsDropdown";
 import SearchResult from "./SearchResult";
@@ -28,6 +29,7 @@ export {
     ChannelSearch,
     CompanyHeader,
     CreateChannel,
+    DemoButton,
     EditChannel,
     ResultsDropdown,
     SearchResult,
